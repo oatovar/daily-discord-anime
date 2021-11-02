@@ -4,5 +4,8 @@
   "deno.unstable": true,
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
-  "editor.defaultFormatter": "denoland.vscode-deno"
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "deno.suggest.imports.hosts": {
+    "https://deno.land": true
+  }
 }
