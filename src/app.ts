@@ -21,15 +21,6 @@ app.use(logger.logger);
 app.use(logger.responseTime);
 // Add etag support to reduce caching.
 app.use(etag.factory());
-// Handle errors gracefully.
-app.use(async (ctx: Context, next: () => Promise<unknown>) => {
-  try {
-    await next();
-  } catch (err) {
-    ctx.response.status = 500;
-    ctx.response.body = { msg: err.message };
-  }
-});
 
 // Add discord commands
 const commands = new Router();
