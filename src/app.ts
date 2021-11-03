@@ -22,12 +22,14 @@ app.use(logger.responseTime);
 // Add etag support to reduce caching.
 app.use(etag.factory());
 
-// Add discord commands
-const commands = new Router();
+const router = new Router();
 // Add healthz endpoint before verification
-commands.all("/healthz", (ctx: Context) => {
+router.all("/healthz", (ctx: Context) => {
   ctx.response.body = "OK";
 });
+
+// Add discord commands
+const commands = new Router();
 // Add verification for all discord webhook reqs
 commands.use(verifier);
 // TODO(oatovar): refactor this to use a slash command
@@ -59,6 +61,8 @@ commands.all("/", async (ctx: Context) => {
 
 // Add routes
 app.use(
+  router.routes(),
+  router.allowedMethods(),
   commands.routes(),
   commands.allowedMethods(),
 );
