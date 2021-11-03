@@ -2,6 +2,7 @@ import { app } from "./src/app.ts";
 
 const listener = Deno.listen({ hostname: "localhost", port: 8080 });
 
+console.log("Server now listening");
 for await (const conn of listener) {
   (async () => {
     const requests = Deno.serveHttp(conn);
@@ -11,5 +12,5 @@ for await (const conn of listener) {
         respondWith(response);
       }
     }
-  });
+  })();
 }
