@@ -9,11 +9,16 @@ export const isVerified = (
   timestamp: string,
   rawBody: string,
 ): boolean => {
-  return signDetachedVerify(
-    Buffer.from(timestamp + rawBody),
-    Buffer.from(signature, "hex"),
-    Buffer.from(publicKey, "hex"),
-  );
+  try {
+    return signDetachedVerify(
+      Buffer.from(timestamp + rawBody),
+      Buffer.from(signature, "hex"),
+      Buffer.from(publicKey, "hex"),
+    );
+  } catch (err) {
+    console.error(err.error);
+    return false;
+  }
 };
 
 export const verifier = (ctx: Context) => {
